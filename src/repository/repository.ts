@@ -1,6 +1,12 @@
 import { db } from '../database/database';
 import { Filme } from '../protocols/type';
 
+export async function getFilmesRepository(): Promise<Filme[]> {
+  const query = 'SELECT * FROM Filmes';
+  const result = await db.query(query);
+  return result.rows; 
+}
+
 export async function postarFilmeRepository(filmeData: Filme): Promise<void> {
   const { nome, plataforma, genero, status, nota, resumo } = filmeData;
   const query = `

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { postarFilmeService } from '../service/service';
+import { postarFilmeService, getFilmesService } from '../service/service';
 
 export default async function postarFilmeController(req: Request, res: Response): Promise<void> {
   try {
@@ -11,26 +11,12 @@ export default async function postarFilmeController(req: Request, res: Response)
   }
 }
 
-/* 
-export default async function postarFilme(req: Request, res: Response): Promise<void> {
-  const body = req.body as Filme;
+export async function getFilmesController(req: Request, res: Response): Promise<void> {
   try {
-    const query = `
-        INSERT INTO Filmes (nome, plataforma, genero, status, nota, resumo)
-        VALUES ($1, $2, $3, $4, $5, $6)
-      `;
-    const values = [
-      body.nome,
-      body.plataforma, 
-      body.genero, 
-      body.status, 
-      body.nota, 
-      body.resumo, 
-    ];
-
-    await db.query(query, values);
-    res.status(201).json({ message: 'Filme inserido com sucesso!' });
+    const filmes = await getFilmesService();
+    res.status(200).json(filmes);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao inserir o filme' });
+    console.error('Erro ao buscar os filmes:', error);
+    res.status(500).json({ error: 'Erro ao buscar os filmes' });
   }
-} */
+}
