@@ -1,5 +1,17 @@
 import { Request, Response } from 'express';
-import { postarFilmeService, getFilmesService } from '../service/service';
+import { postarFilmeService, getFilmesService, updateFilmeService } from '../service/service';
+
+export async function updateFilmeController(req: Request, res: Response): Promise<void> {
+  const { id } = req.params;
+  const { status, nota, resumo } = req.body;
+  try {
+    await updateFilmeService(Number(id), status, nota, resumo);
+    res.status(200).json({ message: 'Filme atualizado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao atualizar o filme:', error);
+    res.status(500).json({ error: 'Erro ao atualizar o filme' });
+  }
+}
 
 export default async function postarFilmeController(req: Request, res: Response): Promise<void> {
   try {

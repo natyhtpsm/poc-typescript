@@ -17,3 +17,13 @@ export async function postarFilmeRepository(filmeData: Filme): Promise<void> {
 
   await db.query(query, values);
 }
+
+export async function updateFilmeRepository(id: number, status: string, nota: number, resumo: string): Promise<void> {
+    const query = `
+      UPDATE Filmes
+      SET status = $1, nota = $2, resumo = $3
+      WHERE id = $4
+    `;
+    const values = [status, nota, resumo, id];
+    await db.query(query, values);
+}
