@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { postarFilmeService, getFilmesService, updateFilmeService, deletarFilmeService } from '../service/service';
+import { postarFilmeService, getFilmesService, updateFilmeService, 
+  deletarFilmeService, contarFilmesService } from '../service/service';
 
 export async function updateFilmeController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
@@ -43,6 +44,24 @@ export async function deletarFilmeController(req: Request, res: Response): Promi
     res.status(500).json({ error: 'Erro ao deletar o filme' });
   }
 }
+
+export async function contarFilmesController(req: Request, res: Response): Promise<void> {
+  try {
+    const plataforma: string | undefined = req.query.plataforma as string | undefined;
+    const genero: string | undefined = req.query.genero as string | undefined;
+    const plataformaString = plataforma ? plataforma.toString() : undefined;
+    const generoString = genero ? genero.toString() : undefined;
+    //exemplo query: http://localhost:4000/contar?plataforma=Netflix
+    const resultado = await contarFilmesService(plataformaString, generoString);
+
+    res.status(200).json(resultado);
+  } catch (error) {
+    console.error('Erro ao contar filmes:', error);
+    res.status(500).json({ error: 'Erro ao contar filmes' });
+  }
+}
+
+
 
 
 

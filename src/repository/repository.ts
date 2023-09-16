@@ -33,3 +33,29 @@ export async function deletarFilmeRepository(id: number): Promise<void> {
     const values = [id];
     await db.query(query, values);
 }
+
+export async function contarFilmesPorPlataforma(plataforma: string): Promise<any> {
+  const query = `
+    SELECT plataforma, COUNT(*) as quantidade
+    FROM Filmes
+    WHERE plataforma = $1
+    GROUP BY plataforma
+  `;
+  const values = [plataforma];
+
+  const result = await db.query(query, values);
+  return result.rows;
+}
+
+export async function contarFilmesPorGenero(genero: string): Promise<any> {
+  const query = `
+    SELECT genero, COUNT(*) as quantidade
+    FROM Filmes
+    WHERE genero = $1
+    GROUP BY genero
+  `;
+  const values = [genero];
+
+  const result = await db.query(query, values);
+  return result.rows;
+}

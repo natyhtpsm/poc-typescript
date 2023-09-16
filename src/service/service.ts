@@ -1,6 +1,16 @@
-import { postarFilmeRepository, getFilmesRepository, updateFilmeRepository, deletarFilmeRepository } from '../repository/repository';
+import { postarFilmeRepository, getFilmesRepository, updateFilmeRepository, 
+deletarFilmeRepository, contarFilmesPorGenero, contarFilmesPorPlataforma } from '../repository/repository';
 import { Filme } from '../protocols/type';
 
+export async function contarFilmesService(plataforma: string | undefined, genero: string | undefined): Promise<any> {
+  if (plataforma) {
+    return contarFilmesPorPlataforma(plataforma);
+  } else if (genero) {
+    return contarFilmesPorGenero(genero);
+  } else {
+    throw new Error('Tipo de consulta inválido. Especifique "plataforma" ou "genero".');
+  }
+}
 
 export async function deletarFilmeService(id: number): Promise<void> {
   await deletarFilmeRepository(id);
