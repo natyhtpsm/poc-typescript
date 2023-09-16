@@ -1,6 +1,10 @@
-import { postarFilmeRepository, getFilmesRepository, updateFilmeRepository } from '../repository/repository';
+import { postarFilmeRepository, getFilmesRepository, updateFilmeRepository, deletarFilmeRepository } from '../repository/repository';
 import { Filme } from '../protocols/type';
 
+
+export async function deletarFilmeService(id: number): Promise<void> {
+  await deletarFilmeRepository(id);
+}
 export async function postarFilmeService(filmeData: Filme): Promise<void> {
   await postarFilmeRepository(filmeData);
 }

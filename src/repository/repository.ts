@@ -27,3 +27,9 @@ export async function updateFilmeRepository(id: number, status: string, nota: nu
     const values = [status, nota, resumo, id];
     await db.query(query, values);
 }
+
+export async function deletarFilmeRepository(id: number): Promise<void> {
+    const query = 'DELETE FROM Filmes WHERE id = $1';
+    const values = [id];
+    await db.query(query, values);
+}

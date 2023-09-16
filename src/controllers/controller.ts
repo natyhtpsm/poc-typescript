@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { postarFilmeService, getFilmesService, updateFilmeService } from '../service/service';
+import { postarFilmeService, getFilmesService, updateFilmeService, deletarFilmeService } from '../service/service';
 
 export async function updateFilmeController(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
@@ -32,3 +32,19 @@ export async function getFilmesController(req: Request, res: Response): Promise<
     res.status(500).json({ error: 'Erro ao buscar os filmes' });
   }
 }
+
+export async function deletarFilmeController(req: Request, res: Response): Promise<void> {
+  const { id } = req.params; 
+  try {
+    await deletarFilmeService(Number(id));
+    res.status(200).json({ message: 'Filme deletado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao deletar o filme:', error);
+    res.status(500).json({ error: 'Erro ao deletar o filme' });
+  }
+}
+
+
+
+
+
