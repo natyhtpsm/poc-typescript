@@ -52,6 +52,8 @@ export async function contarFilmesController(req: Request, res: Response): Promi
     const plataformaString = plataforma ? plataforma.toString() : undefined;
     const generoString = genero ? genero.toString() : undefined;
     //exemplo query: http://localhost:4000/contar?plataforma=Netflix
+    //exemplo2 query: http://localhost:4000/contar?genero=Comédia
+    //exemplo3 query: http://localhost:4000/contar?plataforma=Netflix&genero=Comédia
     const resultado = await contarFilmesService(plataformaString, generoString);
 
     res.status(200).json(resultado);
